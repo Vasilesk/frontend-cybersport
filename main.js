@@ -96,7 +96,7 @@ function addPlayer() {
 
 function removePlayer() {
   var xhr = new XMLHttpRequest();
-  var url = "/api/method/players.removeByID";
+  var url = "/api/method/players.removeById";
   var playerID = parseInt(document.getElementById('remove-id').value)
   // if (playerID < 1) {
   //   playerID = 1;
