@@ -34,7 +34,7 @@ function getPlayers() {
 function putPlayer(player, rootElem) {
   var divPlayer = document.createElement('div');
   divPlayer.playerID = player.id;
-  divPlayer.innerHTML = player.id.toString() + ': ' + player.name;
+  divPlayer.innerHTML = player.id.toString() + ': ' + player.name + ' (r ' + player.rating.toString() + ')';
   rootElem.appendChild(divPlayer);
 }
 
@@ -43,15 +43,18 @@ function imitGetPlayers() {
   var data = [
     {
       id: 1,
-      name: 'Player 1'
+      name: 'Player 1',
+      rating: 0.1,
     },
     {
       id: 2,
-      name: 'Player 2'
+      name: 'Player 2',
+      rating: 0.2,
     },
     {
       id: 3,
-      name: 'Player 3'
+      name: 'Player 3',
+      rating: 0.3,
     },
   ];
   rootElem.innerHTML = '';
@@ -134,7 +137,7 @@ function updatePlayer() {
   if (rating > 1.0) {
     rating = 0.0;
   }
-  var playerID = parseInt(document.getElementById('remove-id').value)
+  var playerID = parseInt(document.getElementById('update-id').value)
   var data = {
     v: 1.0,
     players: [{
