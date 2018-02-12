@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -7,19 +8,61 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function getPlayers() {
+      var xhr = new XMLHttpRequest();
+      var url = "/api/method/players.get";
+      // valid
+      var data = {
+        v: 1.0
+      };
+      var dataToSend = JSON.stringify(data);
+
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          if (data.status == 'error') {
+            // document.getElementById("err2").innerHTML = "Error " + data.message;
+            console.log( "Error " + data.error);
+          } else {
+            console.log(data);
+            // document.getElementById("err1").innerHTML = "Вы зарегестрированы, подождите";
+            // // setting access_key which exists in db into cookie
+            // var date = new Date(new Date().getTime() + 60 * 1000 * 60 * 24 * 365);
+            // document.cookie = "access_key=" + data.message + "; path=/; expires=" + date.toUTCString();
+            // document.getElementById("log").style.display = "block";
+            // document.getElementById("form").style.display = "block";
+            // document.getElementById("out").style.display = "block";
+            // document.getElementById("reg").style.display = "none";
+            // document.getElementById("auc").style.display = "none";
+            // ws();
+            // setting cookie ends
+          }
+          // console.log(json.email + ", " + json.password);
+        }
+      };
+      xhr.send(dataToSend);
+    }
+  </script>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>Hello World!</h1>
-  <p>Resize the browser window to see the effect.</p>
-  <p>The columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
-  <div class="row">
-    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+  <div class="container">
+    <h1>Hello World!</h1>
+    <p>Resize the browser window to see the effect.</p>
+    <p>The columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
+    <div class="row">
+      <div class="col-sm-4" style="background-color:lavender;">
+        <input type="button" value="clickme" onclick="getPlayers()" />
+      </div>
+      <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-4</div>
+      <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+    </div>
   </div>
-</div>
 
 </body>
+
 </html>
