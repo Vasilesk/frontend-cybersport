@@ -4,8 +4,8 @@ function getPlayers() {
   // valid
   var data = {
     v: 1.0,
-    offset: document.getElementById('get-offset'),
-    limit: document.getElementById('get-limit'),
+    offset: document.getElementById('get-offset').innerHTML,
+    limit: document.getElementById('get-limit').innerHTML,
   };
   var dataToSend = JSON.stringify(data);
 
