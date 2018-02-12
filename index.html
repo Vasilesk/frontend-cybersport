@@ -27,9 +27,9 @@
             // document.getElementById("err2").innerHTML = "Error " + data.message;
             console.log( "Error " + data.error);
           } else {
+            data = JSON.parse(JSON.stringify(data));
             console.log(data);
             console.log(data.items);
-            console.log(data['items']);
             var rootElem = document.getElementById('players');
             // data.items.forEach(function(player){putPlayer(player, rootElem)});
             return data
