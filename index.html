@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Cybersport main page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,6 +28,9 @@
             console.log( "Error " + data.error);
           } else {
             console.log(data);
+            var rootElem = document.getElementById('players');
+            data.items.forEach(function(player){putPlayer(player, rootElem)});
+
             // document.getElementById("err1").innerHTML = "Вы зарегестрированы, подождите";
             // // setting access_key which exists in db into cookie
             // var date = new Date(new Date().getTime() + 60 * 1000 * 60 * 24 * 365);
@@ -45,6 +48,17 @@
       };
       xhr.send(dataToSend);
     }
+
+    function putPlayer(player, rootElem) {
+      var divPlayer = document.createElement('div');
+      divPlayer.playerID = player.id;
+      divPlayer.innerHTML = player.name
+      rootElem.appendChild(divPlayer);
+    }
+
+    function test_player_putting() {
+      putPlayer({id: 5, name: 'hello hello'}, document.getElementById('players'));
+    }
   </script>
 </head>
 
@@ -58,8 +72,12 @@
       <div class="col-sm-4" style="background-color:lavender;">
         <input type="button" value="clickme" onclick="getPlayers()" />
       </div>
-      <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-4</div>
-      <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+      <div class="col-sm-4" style="background-color:lavenderblush;">
+        <div id="players"></div>
+      </div>
+      <div class="col-sm-4" style="background-color:lavender;">
+        <input type="button" value="clickme" onclick="test_player_putting()" />
+      </div>
     </div>
   </div>
 
