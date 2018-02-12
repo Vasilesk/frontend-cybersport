@@ -8,78 +8,43 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    function getPlayers() {
-      var xhr = new XMLHttpRequest();
-      var url = "/api/method/players.get";
-      // valid
-      var data = {
-        v: 1.0
-      };
-      var dataToSend = JSON.stringify(data);
-
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var data = JSON.parse(xhr.responseText);
-          if (data.status == 'error') {
-            // document.getElementById("err2").innerHTML = "Error " + data.message;
-            console.log( "Error " + data.error);
-          } else {
-            // data = JSON.parse(JSON.stringify(data));
-            data = data.data
-            var rootElem = document.getElementById('players');
-            console.log(data);
-            console.log(data.items);
-            data.items.forEach(function(player){putPlayer(player, rootElem)});
-
-            // document.getElementById("err1").innerHTML = "Вы зарегестрированы, подождите";
-            // // setting access_key which exists in db into cookie
-            // var date = new Date(new Date().getTime() + 60 * 1000 * 60 * 24 * 365);
-            // document.cookie = "access_key=" + data.message + "; path=/; expires=" + date.toUTCString();
-            // document.getElementById("log").style.display = "block";
-            // document.getElementById("form").style.display = "block";
-            // document.getElementById("out").style.display = "block";
-            // document.getElementById("reg").style.display = "none";
-            // document.getElementById("auc").style.display = "none";
-            // ws();
-            // setting cookie ends
-          }
-          // console.log(json.email + ", " + json.password);
-        }
-      };
-      xhr.send(dataToSend);
-    }
-
-    function putPlayer(player, rootElem) {
-      var divPlayer = document.createElement('div');
-      divPlayer.playerID = player.id;
-      divPlayer.innerHTML = player.name
-      rootElem.appendChild(divPlayer);
-    }
-
-    function test_player_putting() {
-      putPlayer({id: 5, name: 'hello hello'}, document.getElementById('players'));
-    }
-  </script>
+  <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
 
   <div class="container">
-    <h1>Hello World!</h1>
-    <p>Resize the browser window to see the effect.</p>
-    <p>The columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
+    <h1>Демонстрация функциональности API</h1>
+    <p id="err-message" style="color: #ff0000;"></p>
     <div class="row">
-      <div class="col-sm-4" style="background-color:lavender;">
-        <input type="button" value="clickme" onclick="getPlayers()" />
+      <div class="col-sm-4">
+        <div class="well">
+          <h4>Get</h4>
+          <div class="form-group">
+            <label for="get-offset">Оффсет:</label>
+            <input type="number" class="form-control" id="get-offset" size="3" value="0">
+            <label for="get-limit">Лимит:</label>
+            <input type="number" class="form-control" id="get-limit" size="3" value="100">
+          </div>
+          <button onclick="getPlayers()" class="btn btn-default">Подгрузка игроков</button>
+          <hr />
+          <button onclick="imitGetPlayers()" class="btn btn-default">Имитация подгрузки игроков</button>
+        </div>
       </div>
-      <div class="col-sm-4" style="background-color:lavenderblush;">
-        <div id="players"></div>
+      <div class="col-sm-4">
+        <div id="players" class="well"></div>
       </div>
-      <div class="col-sm-4" style="background-color:lavender;">
-        <input type="button" value="clickme" onclick="test_player_putting()" />
+      <div class="col-sm-4">
+        <div class="well">
+          <h4>Add</h4>
+          <div class="form-group">
+            <label for="add-name">Имя:</label>
+            <input type="text" class="form-control" id="add-name" value="Player 0">
+            <label for="add-rating">Рейтинг:</label>
+            <input type="number" class="form-control" id="add-rating" size="3" value="0.5">
+          </div>
+          <button onclick="getPlayers()" class="btn btn-default">Добавление игрока</button>
+        </div>
       </div>
     </div>
   </div>
