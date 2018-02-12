@@ -34,7 +34,7 @@ function getPlayers() {
 function putPlayer(player, rootElem) {
   var divPlayer = document.createElement('div');
   divPlayer.playerID = player.id;
-  divPlayer.innerHTML = player.name
+  divPlayer.innerHTML = player.id.toString() + ': ' + player.name;
   rootElem.appendChild(divPlayer);
 }
 
@@ -122,6 +122,44 @@ function removePlayer() {
       }
     } else {
       document.getElementById("err-message").innerHTML = "Ошибка при удалении игрока";
+    }
+  };
+  xhr.send(dataToSend);
+}
+
+function updatePlayer() {
+  var xhr = new XMLHttpRequest();
+  var url = "/api/method/players.update";
+  var rating = parseFloat(document.getElementById('update-rating').value)
+  if (rating > 1.0) {
+    rating = 0.0;
+  }
+  var playerID = parseInt(document.getElementById('remove-id').value)
+  var data = {
+    v: 1.0,
+    players: [{
+      id: playerID,
+      name: document.getElementById('update-name').value,
+      rating: rating,
+    }]
+  };
+  var dataToSend = JSON.stringify(data);
+
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var data = JSON.parse(xhr.responseText);
+      if (data.status == 'error') {
+        document.getElementById("err-message").innerHTML = "Error: " + data.message;
+        console.log( "Error " + data.error);
+      } else {
+        data = data.data;
+        console.log(data);
+        document.getElementById("err-message").innerHTML = '';
+      }
+    } else {
+      document.getElementById("err-message").innerHTML = "Ошибка при добавлении игрока";
     }
   };
   xhr.send(dataToSend);
