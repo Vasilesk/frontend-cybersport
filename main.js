@@ -93,3 +93,36 @@ function addPlayer() {
   };
   xhr.send(dataToSend);
 }
+
+function removePlayer() {
+  var xhr = new XMLHttpRequest();
+  var url = "/api/method/players.removeByID";
+  var playerID = parseInt(document.getElementById('remove-id').value)
+  // if (playerID < 1) {
+  //   playerID = 1;
+  // }
+  var data = {
+    v: 1.0,
+    id: playerID
+  };
+  var dataToSend = JSON.stringify(data);
+
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var data = JSON.parse(xhr.responseText);
+      if (data.status == 'error') {
+        document.getElementById("err-message").innerHTML = "Error: " + data.message;
+        console.log( "Error " + data.error);
+      } else {
+        data = data.data;
+        console.log(data);
+        document.getElementById("err-message").innerHTML = '';
+      }
+    } else {
+      document.getElementById("err-message").innerHTML = "Ошибка при удалении игрока";
+    }
+  };
+  xhr.send(dataToSend);
+}

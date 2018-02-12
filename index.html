@@ -30,6 +30,14 @@
           <hr />
           <button onclick="imitGetPlayers()" class="btn btn-default">Имитация подгрузки игроков</button>
         </div>
+        <div class="well">
+          <h4>Remove</h4>
+          <div class="form-group">
+            <label for="remove-id">ID:</label>
+            <input type="number" class="form-control" id="remove-id" size="3" value="1">
+          </div>
+          <button onclick="removePlayer()" class="btn btn-default">Удаление игрока</button>
+        </div>
       </div>
       <div class="col-sm-4">
         <div id="players" class="well"></div>
