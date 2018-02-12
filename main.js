@@ -67,10 +67,10 @@ function addPlayer() {
   }
   var data = {
     v: 1.0,
-    players: {
+    players: [{
       name: document.getElementById('add-name').value,
       rating: rating,
-    }
+    }]
   };
   var dataToSend = JSON.stringify(data);
 
