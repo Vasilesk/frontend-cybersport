@@ -27,16 +27,13 @@
             // document.getElementById("err2").innerHTML = "Error " + data.message;
             console.log( "Error " + data.error);
           } else {
-            data = JSON.parse(JSON.stringify(data));
+            // data = JSON.parse(JSON.stringify(data));
+            data = data.data
             var rootElem = document.getElementById('players');
             console.log(data);
             console.log(data.items);
-            // data.items.forEach(function(player){putPlayer(player, rootElem)});
+            data.items.forEach(function(player){putPlayer(player, rootElem)});
 
-            setTimeout(function() {
-                alert(data.items);
-                alert(Object.keys(data));
-            }, 100);
             // document.getElementById("err1").innerHTML = "Вы зарегестрированы, подождите";
             // // setting access_key which exists in db into cookie
             // var date = new Date(new Date().getTime() + 60 * 1000 * 60 * 24 * 365);
