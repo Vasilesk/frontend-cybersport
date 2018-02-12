@@ -28,11 +28,14 @@
             console.log( "Error " + data.error);
           } else {
             data = JSON.parse(JSON.stringify(data));
+            var rootElem = document.getElementById('players');
             console.log(data);
             console.log(data.items);
-            var rootElem = document.getElementById('players');
             // data.items.forEach(function(player){putPlayer(player, rootElem)});
-            return data
+
+            setTimeout(function() {
+                return data
+            }, 100);
             // document.getElementById("err1").innerHTML = "Вы зарегестрированы, подождите";
             // // setting access_key which exists in db into cookie
             // var date = new Date(new Date().getTime() + 60 * 1000 * 60 * 24 * 365);
